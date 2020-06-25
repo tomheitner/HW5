@@ -1,0 +1,5 @@
+SetPolynom q 1,2,-2
+SetPolynom p 0,8
+AddPoint p 1,0,-1,2
+AddPoint q -1
+Print All

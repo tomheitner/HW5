@@ -1,0 +1,12 @@
+p(x)=8
+Derivative: 0
+Integral: 8x+C
+  8*  *  *  *  
+  -1  0  1  2
+
+q(x)=-2x+2
+Derivative: -2
+Integral: -x^2+2x+C
+  4*  
+  -1
+

@@ -1,0 +1,8 @@
+SetPolynom p 2,1,0,1
+SetPolynom q 2,1,0,-2
+SetPolynom t 0,-5
+MathPolynom f p,*,p
+MathPolynom g f,+,q
+MathPolynom h g,*,t
+AddPoint h 0,1,-1
+Print h
