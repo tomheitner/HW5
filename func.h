@@ -23,6 +23,7 @@ class func {
 
  public:
   func& operator<<(const int& x); // entering new value operator
+  map<int, int> get_fmap() const; //getter for fmap_
 };
 
 

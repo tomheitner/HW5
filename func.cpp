@@ -3,6 +3,18 @@
 
 using namespace std;
 
+/*
+Function Name: func::plot
+
+Brief:
+Member function that would be called whnever printing to ostream outside of the class' context using operator<<.
+
+Parameters:
+ostream& ost
+
+Output:
+void
+*/
 void func::plot(ostream& os) const {
  
   vector<int> sortImage;
@@ -33,17 +45,18 @@ void func::plot(ostream& os) const {
       else 
 	os<<"  "<<*it_im;
     
-    for (auto it_dom /*complete code here: loop over map*/) {
+    // check that the for statement is good syntax or whatever
+    for (auto it_dom = fmap_.begin; it_dom.ptr != nullptr; it_dom.next()) {
       if(it_dom.second == *it_im){
-	int x=it_dom.first;
-	int spaces= x-x_anchor;
-	int i=0;
-	while(i<spaces){
-	  os<<"   ";
-	  i++;
-	}
-	os<<"*  ";
-	x_anchor=x+1;
+	    int x=it_dom.first;
+	    int spaces= x-x_anchor;
+	    int i=0;
+	    while(i<spaces){
+	      os<<"   ";
+	      i++;
+	    }
+	    os<<"*  ";
+	    x_anchor=x+1;
       }
 
     }
@@ -95,7 +108,53 @@ func&
 */
 func& func::operator<<(const int& x)
 {
-    fmap_.insert(, )
-    return *this
+    // calculate f(x)
+    int fx = 0;
+    //check whether the new value is maximal or minimal (maybe both)
+    maxVal_ = (fx > maxVal_) ? fx : maxVal_;
+    minVal_ = (fx < minVal_) ? fx : minVal_;
+    fmap_.insert(pair<int, int>(x, fx));  //insert the value into fmap
+    return *this;
+}
+
+
+
+
+/*
+Function Name: func::get_fmap
+
+Brief:
+Getter for the function's fmap
+
+Parameters:
+ostream& ost
+const func& f
+
+Output:
+ostream&
+*/
+map<int, int> func::get_fmap() const {
+    return fmap_;
+}
+
+
+/*
+Function Name: operator<< (for printing)
+
+Brief:
+Prints the function's values at the points previously added to fmap.
+Returns itself so that the operator could be cascaded.
+
+Parameters:
+ostream& ost
+const func& f
+
+Output:
+ostream&
+*/
+ostream& operator<<(ostream& ost, const func& f) {
+    // plot is protected for some reason, consider making public
+    // or maybe this is a pure virtual (=0) that would be implemented in all the derived classes.
+    f.plot(ost); 
 }
 
