@@ -1,5 +1,7 @@
 #include "func.h"
+#include <vector>
 
+using namespace std;
 
 void func::plot(ostream& os) const {
  
@@ -75,3 +77,25 @@ void func::plot(ostream& os) const {
   }
   os<<endl;
 }
+
+
+
+/*
+Function Name: func::operator<<
+
+Brief: 
+Enter a new value x where the function would be computed at.
+Returns itself so that the operator could be cascaded.
+
+Parameters: 
+const int& x
+
+Output: 
+func&
+*/
+func& func::operator<<(const int& x)
+{
+    fmap_.insert(, )
+    return *this
+}
+
