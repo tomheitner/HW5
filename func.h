@@ -22,9 +22,10 @@ class func {
   void plot(ostream& os) const ; //plot fmap_
 
  public:
-  func& operator<<(const int& x); // entering new value operator
-  map<int, int> get_fmap() const; //getter for fmap_
+  virtual func& operator<<(const int& x) = 0; // entering new value operator
+  virtual void toString(ostream& ost) const = 0; // method for printing the function's properties
 };
 
+ostream& operator<<(ostream& ost, const func& f); // printing operator
 
 #endif

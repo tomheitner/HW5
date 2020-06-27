@@ -7,7 +7,7 @@ using namespace std;
 Function Name: func::plot
 
 Brief:
-Member function that would be called whnever printing to ostream outside of the class' context using operator<<.
+Plots the function's graph.
 
 Parameters:
 ostream& ost
@@ -94,51 +94,6 @@ void func::plot(ostream& os) const {
 
 
 /*
-Function Name: func::operator<<
-
-Brief: 
-Enter a new value x where the function would be computed at.
-Returns itself so that the operator could be cascaded.
-
-Parameters: 
-const int& x
-
-Output: 
-func&
-*/
-func& func::operator<<(const int& x)
-{
-    // calculate f(x)
-    int fx = 0;
-    //check whether the new value is maximal or minimal (maybe both)
-    maxVal_ = (fx > maxVal_) ? fx : maxVal_;
-    minVal_ = (fx < minVal_) ? fx : minVal_;
-    fmap_.insert(pair<int, int>(x, fx));  //insert the value into fmap
-    return *this;
-}
-
-
-
-
-/*
-Function Name: func::get_fmap
-
-Brief:
-Getter for the function's fmap
-
-Parameters:
-ostream& ost
-const func& f
-
-Output:
-ostream&
-*/
-map<int, int> func::get_fmap() const {
-    return fmap_;
-}
-
-
-/*
 Function Name: operator<< (for printing)
 
 Brief:
@@ -153,8 +108,7 @@ Output:
 ostream&
 */
 ostream& operator<<(ostream& ost, const func& f) {
-    // plot is protected for some reason, consider making public
-    // or maybe this is a pure virtual (=0) that would be implemented in all the derived classes.
-    f.plot(ost); 
+    f.toString(ost);
+    return ost;
 }
 
