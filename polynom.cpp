@@ -119,7 +119,7 @@ polynom polynom::operator+(const polynom& other)
 	}
 
     polynom res_p (maximum, new_coef);
-    delete new_coef;
+    delete[] new_coef;
     return res_p;
 }
 
@@ -159,7 +159,7 @@ polynom polynom::operator-(const polynom& other)
 	}
 
     polynom res_p(maximum, new_coef);
-    delete new_coef;
+    delete[] new_coef;
     return res_p;
 }
 
@@ -216,7 +216,7 @@ polynom polynom::operator*(const polynom& other)
     return res_p;
 }
 
-polynom polynom::Derivative()
+polynom polynom::Derivative() const
 {
     int new_order = n_ - 1;
     int* new_coef = new int[new_order + 1];
@@ -226,26 +226,35 @@ polynom polynom::Derivative()
         new_coef[i] = (i + 1) * coefs_[i+1];
     }
     polynom res_p(new_order,new_coef);
-    delete new_coef;
+    delete[] new_coef;
     return res_p;
 }
 
-polynom polynom::Integral()
+polynom polynom::Integral() const
 {
     int new_order = n_ + 1;
     int* new_coef = new int[new_order + 1];
-    new_coef [0] = 0;//C = 0
+    new_coef [0] = 0;
 
     for (int i = 1; i <= new_order; i++)
     {
         new_coef[i] = coefs_[i -1]/(i) ;
     }
     polynom res_p(new_order, new_coef);
-    delete new_coef;
+    delete[] new_coef;
     return res_p;
 }
 
 void polynom::toString(ostream& ost) const
-{
+{   
     printcoefs(ost);
+    cout << endl;
+    cout << "Derivative: ";
+    Derivative().printcoefs(ost);
+    cout << endl;
+    cout << "Integral: ";
+    Integral().printcoefs(ost);
+    cout << "+C";
+    cout << endl;
+    plot(ost);
 }

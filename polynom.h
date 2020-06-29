@@ -21,8 +21,8 @@ class polynom : public func {
   polynom operator*(const polynom&  other);
 
   // Hedva operations
-  polynom Derivative();
-  polynom Integral();
+  polynom Derivative() const;
+  polynom Integral() const ;
 
   void toString(ostream& ost) const; // virtual
 
