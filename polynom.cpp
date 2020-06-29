@@ -89,7 +89,7 @@ polynom& polynom::operator<<(const int& x)
     return *this;
 }
 
-polynom polynom::operator+(polynom other)
+polynom polynom::operator+(const polynom& other)
 {
     int minimum, maximum;
     int* bigger_order_coef;
@@ -104,7 +104,7 @@ polynom polynom::operator+(polynom other)
         maximum = n_;
         bigger_order_coef = coefs_;
     }
-    int new_coef[maximum + 1];
+    int* new_coef = new int[maximum + 1];
 
     for(int i=0; i<maximum+1 ;i++)
     {
@@ -118,11 +118,12 @@ polynom polynom::operator+(polynom other)
 		}
 	}
 
-    polynom res_p = polynom(maximum, new_coef);
+    polynom res_p (maximum, new_coef);
+    delete new_coef;
     return res_p;
 }
 
-polynom polynom::operator-(polynom other)
+polynom polynom::operator-(const polynom& other)
 {
     int minimum, maximum;
     int* bigger_order_coef;
@@ -140,7 +141,7 @@ polynom polynom::operator-(polynom other)
         bigger_order_coef = coefs_;
         other_order_bigger = false;
     }
-    int new_coef[maximum + 1];
+    int* new_coef = new int[maximum + 1];
 
     for(int i=0; i<maximum+1 ;i++)
     {
@@ -157,11 +158,12 @@ polynom polynom::operator-(polynom other)
 		}
 	}
 
-    polynom res_p = polynom(maximum, new_coef);
+    polynom res_p(maximum, new_coef);
+    delete new_coef;
     return res_p;
 }
 
-polynom polynom::operator*(polynom other)
+polynom polynom::operator*(const polynom& other)
 {
     int minimum, maximum;
     int* bigger_order_coef;
@@ -184,7 +186,7 @@ polynom polynom::operator*(polynom other)
         if (i <= this->n_)
             cofs1[i] = coefs_[i];
         else
-            cofs[i] = 0
+            cofs1[i] = 0;
     }
 
     int* cofs2 = new int[order + 1]; // other's coefficients
@@ -193,7 +195,7 @@ polynom polynom::operator*(polynom other)
         if (i <= other.n_)
             cofs2[i] = other.coefs_[i];
         else
-            cofs2[i] = 0
+            cofs2[i] = 0;
     }
 
     for (int i = 0; i < order + 1; i++)
@@ -205,7 +207,7 @@ polynom polynom::operator*(polynom other)
         }
     }
 
-    polynom res_p = polynom(order, cofs);
+    polynom res_p(order, cofs);
 
     delete[] cofs;
     delete[] cofs1;
@@ -216,15 +218,34 @@ polynom polynom::operator*(polynom other)
 
 polynom polynom::Derivative()
 {
-    return polynom();
+    int new_order = n_ - 1;
+    int* new_coef = new int[new_order + 1];
+
+    for (int i = 0; i <= new_order; i++)
+    {
+        new_coef[i] = (i + 1) * coefs_[i+1];
+    }
+    polynom res_p(new_order,new_coef);
+    delete new_coef;
+    return res_p;
 }
 
 polynom polynom::Integral()
 {
-    return polynom();
+    int new_order = n_ + 1;
+    int* new_coef = new int[new_order + 1];
+    new_coef [0] = 0;//C = 0
+
+    for (int i = 1; i <= new_order; i++)
+    {
+        new_coef[i] = coefs_[i -1]/(i) ;
+    }
+    polynom res_p(new_order, new_coef);
+    delete new_coef;
+    return res_p;
 }
 
-void polynom::toString(ostream& ost)
+void polynom::toString(ostream& ost) const
 {
-    printcoefs
+    printcoefs(ost);
 }

@@ -16,15 +16,15 @@ class polynom : public func {
   polynom& operator<<(const int& x); // virtual
 
   // Basic math operations
-  polynom operator+(polynom other);
-  polynom operator-(polynom other);
-  polynom operator*(polynom other);
+  polynom operator+(const polynom& other);
+  polynom operator-(const polynom&  other);
+  polynom operator*(const polynom&  other);
 
   // Hedva operations
   polynom Derivative();
   polynom Integral();
 
-  void toString(ostream& ost); // virtual
+  void toString(ostream& ost) const; // virtual
 
  protected:
 
