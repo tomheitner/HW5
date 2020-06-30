@@ -57,20 +57,52 @@ polynom::polynom(int order, int* cof) : n_(order) {
         coefs_[i] = cof[i];
     }
 }
+/*
+Function Name: polynom::polynom
 
+Brief:
+The class' copy-tor. Recieves other polynom and clone it to another polyhon
+
+Parameters:
+polynom& other
+
+Output: 
+-
+*/
 polynom::polynom(const polynom& other) : n_(other.n_) {
     coefs_ = new int[other.n_ + 1];
     for (int i = 0; i <= other.n_; i++) {
         coefs_[i] = other.coefs_[i];
     }
 }
+/*
+Function Name: polynom::~polynom
 
+Brief:
+The class' dtor
+
+Parameters:
+
+Output:
+-
+*/
 polynom::~polynom()
 {
     delete[] coefs_;
 }
 
+/*
+Function Name: polynom::operator<<
 
+Brief:
+operator for inserting new value x to polynom 
+
+Parameters:
+const int& x
+
+Output:
+polynom by reference
+*/
 polynom& polynom::operator<<(const int& x)
 {
     int fx = 0;
@@ -88,7 +120,18 @@ polynom& polynom::operator<<(const int& x)
 	}
     return *this;
 }
+/*
+Function Name: polynom::operator+
 
+Brief:
+operator adding two polynoms together
+
+Parameters:
+const polynom& other
+
+Output:
+polynom
+*/
 polynom polynom::operator+(const polynom& other)
 {
     int minimum, maximum;
@@ -122,7 +165,18 @@ polynom polynom::operator+(const polynom& other)
     delete[] new_coef;
     return res_p;
 }
+/*
+Function Name: polynom::operator-
 
+Brief:
+operator for subtracting polynom from another one
+
+Parameters:
+const polynom& other
+
+Output:
+polynom
+*/
 polynom polynom::operator-(const polynom& other)
 {
     int minimum, maximum;
@@ -162,7 +216,18 @@ polynom polynom::operator-(const polynom& other)
     delete[] new_coef;
     return res_p;
 }
+/*
+Function Name: polynom::operator*
 
+Brief:
+operator for multiplying  two polynoms 
+
+Parameters:
+const polynom& other
+
+Output:
+polynom
+*/
 polynom polynom::operator*(const polynom& other)
 {
     int minimum, maximum;
@@ -215,7 +280,18 @@ polynom polynom::operator*(const polynom& other)
 
     return res_p;
 }
+/*
+Function Name: polynom::Derivative
 
+Brief:
+calculating the derivative of a polynom
+
+Parameters:
+
+
+Output:
+polynom which is a derivative of the polynom
+*/
 polynom polynom::Derivative() const
 {
     int new_order = n_ - 1;
@@ -229,7 +305,18 @@ polynom polynom::Derivative() const
     delete[] new_coef;
     return res_p;
 }
+/*
+Function Name: polynom::integral
 
+Brief:
+calculating the integral of a polynom
+
+Parameters:
+
+
+Output:
+polynom which is a integral of the polynom
+*/
 polynom polynom::Integral() const
 {
     int new_order = n_ + 1;
@@ -244,7 +331,18 @@ polynom polynom::Integral() const
     delete[] new_coef;
     return res_p;
 }
+/*
+Function Name: polynom::toString
 
+Brief:
+printing the polynom , his derivative and integral and the graph of points added to it.
+
+Parameters:
+ostream& ost
+
+Output:
+-
+*/
 void polynom::toString(ostream& ost) const
 {   
     printcoefs(ost);
@@ -257,4 +355,26 @@ void polynom::toString(ostream& ost) const
     cout << "+C";
     cout << endl;
     plot(ost);
+}
+/*
+Function Name: polynom::calcValue
+
+Brief:
+calculating the value of the polynom with a given x coordinate
+
+Parameters:
+const int& x
+
+Output:
+int- the value of the polynom with given x.
+*/
+int polynom::calcValue(const int& x) const
+{
+    int res;
+
+    for (int i = 0; i <= n_ ; i++) {
+        res += coefs_[i] * pow(x, i);
+    }
+    
+    return res;
 }

@@ -25,6 +25,8 @@ class polynom : public func {
   polynom Integral() const ;
 
   void toString(ostream& ost) const; // virtual
+ 
+  int calcValue(const int& x) const; //virtual
 
  protected:
 
