@@ -46,7 +46,6 @@ void func::plot(ostream& os) const {
       else 
 	os<<"  "<<*it_im;
     
-    // check that the for statement is good syntax or whatever
     for (auto it_dom : fmap_) {
       if(it_dom.second == *it_im){
 	    int x=it_dom.first;

@@ -121,7 +121,7 @@ function by reference
 func& polynom::operator<<(const int& x)
 {
     int fx = 0;
-    for (int i = 0; i < n_; i++)
+    for (int i = 0; i <= n_; i++)
     {
         fx += (int)coefs_[i] * pow(x, i);
     }  
@@ -310,6 +310,13 @@ polynom which is a derivative of the polynom
 */
 polynom polynom::Derivative() const
 {
+    //checking if its a constant function
+    if (n_ == 0) {
+        int new_coef[1] = { 0 };
+        int new_order = 0;
+        polynom res_p(new_order, new_coef);
+        return res_p;
+    }
     int new_order = n_ - 1;
     int* new_coef = new int[new_order + 1];
 
