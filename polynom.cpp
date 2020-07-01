@@ -61,6 +61,21 @@ polynom::polynom(int order, int* cof) : n_(order) {
 Function Name: polynom::polynom
 
 Brief:
+The class' c-tor with no parameters.
+
+Parameters:
+
+Output:
+-
+*/
+polynom::polynom() : n_(0){
+    coefs_ = nullptr;
+}
+
+/*
+Function Name: polynom::polynom
+
+Brief:
 The class' copy-tor. Recieves other polynom and clone it to another polyhon
 
 Parameters:
@@ -82,7 +97,7 @@ Brief:
 The class' dtor
 
 Parameters:
-
+-
 Output:
 -
 */
@@ -101,20 +116,23 @@ Parameters:
 const int& x
 
 Output:
-polynom by reference
+function by reference
 */
-polynom& polynom::operator<<(const int& x)
+func& polynom::operator<<(const int& x)
 {
     int fx = 0;
     for (int i = 0; i < n_; i++)
     {
-        fx += coefs_[i] * pow(x, i);
+        fx += (int)coefs_[i] * pow(x, i);
     }  
     fmap_.insert(pair<int, int>(x, fx));
-    if(fmap_.size() == 1){
+    if(fmap_.size() == 1)
+    {
         maxVal_ = x;
         minVal_ = x;
-	}else{
+	}
+    else
+    {
         if (x > maxVal_) maxVal_ = x;
         if (x < minVal_) minVal_ = x;
 	}
@@ -132,7 +150,7 @@ const polynom& other
 Output:
 polynom
 */
-polynom polynom::operator+(const polynom& other)
+polynom polynom::operator+(const polynom& other) const
 {
     int minimum, maximum;
     int* bigger_order_coef;
@@ -177,7 +195,7 @@ const polynom& other
 Output:
 polynom
 */
-polynom polynom::operator-(const polynom& other)
+polynom polynom::operator-(const polynom& other) const
 {
     int minimum, maximum;
     int* bigger_order_coef;
@@ -228,10 +246,9 @@ const polynom& other
 Output:
 polynom
 */
-polynom polynom::operator*(const polynom& other)
+polynom polynom::operator*(const polynom& other) const
 {
     int minimum, maximum;
-    int* bigger_order_coef;
 
     if (n_ < other.n_) {
         minimum = n_;
@@ -288,7 +305,6 @@ calculating the derivative of a polynom
 
 Parameters:
 
-
 Output:
 polynom which is a derivative of the polynom
 */
@@ -312,7 +328,7 @@ Brief:
 calculating the integral of a polynom
 
 Parameters:
-
+-
 
 Output:
 polynom which is a integral of the polynom
@@ -370,7 +386,7 @@ int- the value of the polynom with given x.
 */
 int polynom::calcValue(const int& x) const
 {
-    int res;
+    int res = 0;
 
     for (int i = 0; i <= n_ ; i++) {
         res += coefs_[i] * pow(x, i);

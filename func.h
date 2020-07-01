@@ -1,5 +1,5 @@
-#ifndef _F
-#define _F
+#ifndef _LE
+#define _LE
 #include <map>
 #include <iostream>
 
@@ -24,8 +24,11 @@ class func {
  public:
   virtual func& operator<<(const int& x) = 0; // entering new value operator
   virtual void toString(ostream& ost) const = 0; // method for printing the function's properties
+  virtual int calcValue(const int& x) const = 0;  // calculate the function's value at x [ f(x) ]
+  friend ostream& operator<<(ostream& ost, const func& f); // printing operator
+  virtual ~func();
 };
 
-ostream& operator<<(ostream& ost, const func& f); // printing operator
+
 
 #endif

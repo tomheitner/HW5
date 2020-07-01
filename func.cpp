@@ -1,5 +1,6 @@
 #include "func.h"
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -21,10 +22,10 @@ void func::plot(ostream& os) const {
     
   sortImage.clear();
   for ( auto it : fmap_){
-    //complete code here: insert the image of the function into sortImage 
+      sortImage.push_back(it.second);//complete code here: insert the image of the function into sortImage 
   }
-  //complete code here: sort sortImage
-  //complete code here: flip sortImage (reverse)
+  sort(sortImage.begin(), sortImage.end());//complete code here: sort sortImage
+  reverse(sortImage.begin(), sortImage.end());//complete code here: flip sortImage (reverse)
   
   for ( auto it_im = sortImage.begin();
        it_im != sortImage.end(); ++it_im) {
@@ -46,7 +47,7 @@ void func::plot(ostream& os) const {
 	os<<"  "<<*it_im;
     
     // check that the for statement is good syntax or whatever
-    for (auto it_dom = fmap_.begin; it_dom.ptr != nullptr; it_dom.next()) {
+    for (auto it_dom : fmap_) {
       if(it_dom.second == *it_im){
 	    int x=it_dom.first;
 	    int spaces= x-x_anchor;
@@ -90,8 +91,18 @@ void func::plot(ostream& os) const {
   }
   os<<endl;
 }
+/*
+Function Name: func::~func
 
+Brief:
+dtor without parameters for abstract class func to prevent undefined behavior
 
+Parameters:
+-
+Output:
+-
+*/
+func::~func() {}
 
 /*
 Function Name: operator<< (for printing)

@@ -10,23 +10,26 @@ class polynom : public func {
  public:
 
   polynom(int order, int* cof); // c-tor
+  polynom();// parameterless c-tor
   polynom(const polynom& other); // copy c-tor
   ~polynom(); // d-tor
+
   void printcoefs(ostream&)  const ;
-  polynom& operator<<(const int& x); // virtual
+  
 
   // Basic math operations
-  polynom operator+(const polynom& other);
-  polynom operator-(const polynom&  other);
-  polynom operator*(const polynom&  other);
+  polynom operator+(const polynom& other) const;
+  polynom operator-(const polynom&  other) const;
+  polynom operator*(const polynom&  other) const;
 
   // Hedva operations
   polynom Derivative() const;
   polynom Integral() const ;
 
-  void toString(ostream& ost) const; // virtual
- 
-  int calcValue(const int& x) const; //virtual
+  // Virtuals
+  void toString(ostream& ost) const;
+  func& operator<<(const int& x);
+  int calcValue(const int& x) const;
 
  protected:
 
