@@ -66,7 +66,7 @@ Output:
 */
 void compfunc::toString(ostream& ost) const
 {
-	plot(ost);
+	cout << endl;
 }
 
 /*

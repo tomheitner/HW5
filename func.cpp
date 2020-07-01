@@ -119,6 +119,9 @@ ostream&
 */
 ostream& operator<<(ostream& ost, const func& f) {
     f.toString(ost);
+    if (!(f.fmap_.empty())) {
+        f.plot(ost);
+    }
     return ost;
 }
 

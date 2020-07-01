@@ -367,7 +367,15 @@ Output:
 -
 */
 void polynom::toString(ostream& ost) const
-{   
+{
+    bool is_polynom0 = true;
+    //checking if it is p(x)= 0
+    for (int i = 0; i <= n_; i++) {
+        if (coefs_[i] != 0) {
+            is_polynom0 = false;
+            break;
+        }
+    }
     printcoefs(ost);
     cout << endl;
     cout << "Derivative: ";
@@ -375,9 +383,9 @@ void polynom::toString(ostream& ost) const
     cout << endl;
     cout << "Integral: ";
     Integral().printcoefs(ost);
-    cout << "+C";
+    if(is_polynom0) cout << "C";
+    else cout << "+C";
     cout << endl;
-    plot(ost);
 }
 /*
 Function Name: polynom::calcValue
