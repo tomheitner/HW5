@@ -49,6 +49,8 @@ compfunc& compfunc::operator<<(const int& x)
 {
 	int fx = this->calcValue(x);
 	fmap_.insert(pair<int, int>(x, fx));
+	if (x > maxVal_) maxVal_ = x;
+	if (x < minVal_) minVal_ = x;
 	return *this;
 }
 
