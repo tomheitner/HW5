@@ -382,9 +382,13 @@ void polynom::toString(ostream& ost) const
     Derivative().printcoefs(ost);
     cout << endl;
     cout << "Integral: ";
-    Integral().printcoefs(ost);
-    if(is_polynom0) cout << "C";
-    else cout << "+C";
+    if (is_polynom0) {
+        cout << "C";
+    }
+    else {
+        Integral().printcoefs(ost);
+        cout << "+C";
+    }
     cout << endl;
 }
 /*
