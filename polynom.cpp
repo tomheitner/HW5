@@ -51,7 +51,7 @@ int* cof
 Output:
 -
 */
-polynom::polynom(int order, int* cof) : n_(order) {
+polynom::polynom(int order, int* cof) :func(),n_(order) {
     coefs_ = new int[order + 1];
     for (int i = 0; i <= order; i++) {
         coefs_[i] = cof[i];
@@ -68,7 +68,8 @@ Parameters:
 Output:
 -
 */
-polynom::polynom() : n_(0){
+polynom::polynom() : func(),n_(0) {
+   
     coefs_ = nullptr;
 }
 
@@ -85,6 +86,11 @@ Output:
 -
 */
 polynom::polynom(const polynom& other) : n_(other.n_) {
+    maxVal_ = other.maxVal_;
+    minVal_ = other.minVal_;
+    for (auto pair : other.fmap_) {
+        fmap_.insert(pair);
+    }
     coefs_ = new int[other.n_ + 1];
     for (int i = 0; i <= other.n_; i++) {
         coefs_[i] = other.coefs_[i];
@@ -165,6 +171,8 @@ polynom polynom::operator+(const polynom& other) const
         maximum = n_;
         bigger_order_coef = coefs_;
     }
+
+
     int* new_coef = new int[maximum + 1];
 
     for(int i=0; i<maximum+1 ;i++)
@@ -178,8 +186,17 @@ polynom polynom::operator+(const polynom& other) const
             new_coef[i] = bigger_order_coef[i];
 		}
 	}
+    // in case the arithmetic decreases the new polynom's order
+    int new_order = 0;
 
-    polynom res_p (maximum, new_coef);
+    for(int i = maximum; i >= 0; i--) {
+        if (new_coef[i] != 0) {
+            new_order = i;
+            break;
+        }
+	}
+
+    polynom res_p (new_order, new_coef);
     delete[] new_coef;
     return res_p;
 }
@@ -229,8 +246,15 @@ polynom polynom::operator-(const polynom& other) const
                 new_coef[i] = +bigger_order_coef[i];
 		}
 	}
-
-    polynom res_p(maximum, new_coef);
+    // in case the arithmetic decreases the new polynom's order
+    int new_order = 0;
+    for(int i = maximum; i >= 0; i--) {
+        if (new_coef[i] != 0) {
+            new_order = i;
+            break;
+        }
+	}
+    polynom res_p(new_order, new_coef);
     delete[] new_coef;
     return res_p;
 }
@@ -350,7 +374,14 @@ polynom polynom::Integral() const
     {
         new_coef[i] = coefs_[i -1]/(i) ;
     }
-    polynom res_p(new_order, new_coef);
+    int eff_order = 0;
+    for(int i = new_order; i >= 0; i--) {
+        if (new_coef[i] != 0) {
+            eff_order = i;
+            break;
+        }
+	}
+    polynom res_p(eff_order,new_coef);
     delete[] new_coef;
     return res_p;
 }

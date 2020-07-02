@@ -91,6 +91,19 @@ void func::plot(ostream& os) const {
   os<<endl;
 }
 /*
+Function Name : func::func
+
+Brief :
+ctor without parameters for abstract class func to prevent undefined behavior
+
+Parameters :
+-
+Output :
+    -
+ */
+func::func() : maxVal_(0),minVal_(0){}
+
+/*
 Function Name: func::~func
 
 Brief:

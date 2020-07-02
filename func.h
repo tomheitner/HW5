@@ -22,6 +22,7 @@ class func {
   void plot(ostream& os) const ; //plot fmap_
 
  public:
+  func();//ctor;
   virtual func& operator<<(const int& x) = 0; // entering new value operator
   virtual void toString(ostream& ost) const = 0; // method for printing the function's properties
   virtual int calcValue(const int& x) const = 0;  // calculate the function's value at x [ f(x) ]
